@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>HI and LOゲーム</title>
+</head>
+<body>
+    <h1>HI and LOゲーム</h1>
+    <% if (choice) { %>
+        <p>あなたのカードの数字は<%= your %>です．</p>
+        <p>コンピュータのカードの数字は<%= cpu %>です．</p>
+        <p><%= judgement %></p>
+    <% } else { %>
+        <p>「高い（Hi）」か「低い（Lo）」を選んでください。</p>
+        <p>あなたのカードの数字は<%= your %>です．</p>
+    <% } %>
+    <hr>
+
+    <% if (!choice) { %>
+        <form action="/hiandlo" method="get">
+            <input type="hidden" name="total" value="<%= total %>">
+            <input type="hidden" name="userCard" value="<%= your %>"> <!-- ユーザーのカードを送信 -->
+            <p>次に選んでください：</p>
+            <input type="radio" id="hi" name="choice" value="hi" required>
+            <label for="hi">高い（Hi）</label><br>
+            <input type="radio" id="lo" name="choice" value="lo" required>
+            <label for="lo">低い（Lo）</label><br>
+            <input type="submit" value="判定">
+        </form>
+    <% } else { %>
+        <form action="/hiandlo" method="get">
+            <input type="hidden" name="total" value="<%= total %>">
+            <input type="submit" value="もう一度プレイ">
+        </form>
+    <% } %>
+
+</body>
+</html>

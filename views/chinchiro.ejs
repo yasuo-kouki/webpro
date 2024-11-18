@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>チンチロゲーム</title>
+</head>
+<body>
+    <h1>チンチロゲーム</h1>
+    <% if (userRole && cpuRole) { %>
+        <p>あなたのサイコロの目は<%= userDice %>です．役：<%= userRole %></p>
+        <p>コンピュータのサイコロの目は<%= cpuDice %>です．役：<%= cpuRole %></p>
+        <p><%= judgement %></p>
+    <% } else { %>
+        <p>サイコロを振って、役を判定します。</p>
+    <% } %>
+    <hr>
+
+    <form action="/chinchiro" method="get">
+        <input type="submit" value="サイコロを振る">
+    </form>
+
+</body>
+</html>
