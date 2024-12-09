@@ -24,6 +24,7 @@ document.querySelector('#post').addEventListener('click', () => {
     })
     .then( (response) => {
         console.log( response );
+        document.querySelector('#message').value = "";
     });
 });
 
@@ -51,7 +52,7 @@ document.querySelector('#check').addEventListener('click', () => {
         if( number != value ) {
             const params = {
                 method: "POST",
-                body: 'start='+number-1,
+                body: 'start='+number,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'               
                 }
@@ -65,14 +66,21 @@ document.querySelector('#check').addEventListener('click', () => {
                 return response.json();
             })
             .then( (response) => {
+                number += response.messages.length;
                 for( let mes of response.messages ) {
-                    console.log( mes );
+                    console.log( mes );  // 表示する投稿
                     let cover = document.createElement('div');
+                    cover.className = 'cover';
                     let name_area = document.createElement('span');
+                    name_area.className = 'name';
                     name_area.innerText = mes.name;
                     let mes_area = document.createElement('span');
-                    mem_area.innerText = mes.message;
+                    mes_area.className = 'mes';
+                    mes_area.innerText = mes.message;
+                    cover.appendChild( name_area );
+                    cover.appendChild( mes_area );
 
+                    bbs.appendChild( cover );
                 }
             })
         }

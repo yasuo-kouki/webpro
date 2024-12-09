@@ -87,7 +87,9 @@ app.post("/check", (req, res) => {
 
 app.post("/read", (req, res) => {
     const start = Number( req.body.start );
-    res.json( {messages: bbs.slice( start )});
+    console.log( "read -> " + start );
+    if( start==0 ) res.json( {messages: bbs });
+    else res.json( {messages: bbs.slice( start )});
 });
 
 app.post("/post", (req, res) => {
