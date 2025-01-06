@@ -11,3 +11,30 @@
 .mes {
     margin-left: 30px;
 }
+
+/* 投稿フォームのスタイル */
+.controls {
+    display: flex;
+    justify-content: center; /* 中央揃え */
+    align-items: center;      /* 垂直方向も中央揃え */
+    margin-top: 10px;
+    width: 100%;
+}
+
+.controls .left {
+    position: absolute; /* 左側に固定 */
+    left: 10px; /* 少し左に寄せる */
+}
+
+.controls .center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.controls input[type="checkbox"] {
+    margin-right: 10px; /* チェックボックスとラベルの間にスペース */
+}
+
+.controls button {
+    margin-left: 20px; /* 投稿チェックボタンとの間にスペース */
+}
