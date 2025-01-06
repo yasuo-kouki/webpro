@@ -15,10 +15,12 @@ app.get("/hello2", (req, res) => {
   res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
 });
 
+//アイコンの表示
 app.get("/icon", (req, res) => {
   res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
 });
 
+//ランダムの使い方
 app.get("/luck", (req, res) => {
   const num = Math.floor( Math.random() * 6 + 1 );
   let luck = '';
@@ -28,6 +30,7 @@ app.get("/luck", (req, res) => {
   res.render( 'luck', {number:num, luck:luck} );
 });
 
+//勝敗の決定
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
   let win = Number( req.query.win );
@@ -53,12 +56,15 @@ app.get("/janken", (req, res) => {
   res.render( 'janken', display );
 });
 
+
+//APIの話
 app.get("/get_test", (req, res) => {
   res.json({
     answer: 0
   })
 });
 
+//ほんとは数字であることの確認をする
 app.get("/add", (req, res) => {
   console.log("GET");
   console.log( req.query );
@@ -69,6 +75,7 @@ app.get("/add", (req, res) => {
   res.json( {answer: num1+num2} );
 });
 
+//POSTを使うことでURLの長さを伸ばせる
 app.post("/add", (req, res) => {
   console.log("POST");
   console.log( req.body );

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掲示板</title>
+    <script src="./bbs.js" defer></script>
+    <link rel="stylesheet" href="./bbs.css">
+</head>
+<body>
+    <div id="bbs"></div>
+    <div>
+        <label for="name">名前：</label>
+        <input type="text" id="name">
+        <label for="name">メッセージ：</label>
+        <input type="text" id="message">
+        <button type="button" id="post">送信</button>
+    </div>
+
+    <div class="controls">
+        <!-- 匿名で投稿のチェックボックス（左側） -->
+        <div class="left">
+            <input type="checkbox" id="anonymous">
+            <label for="anonymous">匿名で投稿</label>
+        </div>
+
+        <!-- 投稿チェックボタン（中央） -->
+        <div class="center">
+            <button type="button" id="check">投稿チェック</button>
+        </div>
+    </div>
+
+</body>
+</html>

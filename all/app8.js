@@ -2,35 +2,45 @@
 const express = require("express");
 const app = express();
 
-let bbs = [];  // 本来はDBMSを使用するが，今回はこの変数にデータを蓄える
+// BBSデータを保存する配列（本来はDBMSを使用する）
+let bbs = [];  
 
+// EJSをテンプレートエンジンとして設定
 app.set('view engine', 'ejs');
+// 静的ファイル（CSS、JS、画像など）を提供するディレクトリを設定
 app.use("/public", express.static(__dirname + "/public"));
+// POSTデータのパース用ミドルウェア
 app.use(express.urlencoded({ extended: true }));
 
+// "/hello1"ルートで2つの挨拶メッセージを表示
 app.get("/hello1", (req, res) => {
   const message1 = "Hello world";
   const message2 = "Bon jour";
   res.render('show', { greet1:message1, greet2:message2});
 });
 
+// "/hello2"ルートでもう1つの簡単な挨拶表示
 app.get("/hello2", (req, res) => {
   res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
 });
 
+// "/icon"ルートで画像を表示
 app.get("/icon", (req, res) => {
   res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
 });
 
+// ランダムにおみくじを表示
 app.get("/luck", (req, res) => {
   const num = Math.floor( Math.random() * 6 + 1 );
   let luck = '';
+  // おみくじの運勢判定
   if( num==1 ) luck = '大吉';
   else if( num==2 ) luck = '中吉';
   console.log( 'あなたの運勢は' + luck + 'です' );
   res.render( 'luck', {number:num, luck:luck} );
 });
 
+// "/janken"ルートでじゃんけんを行い、勝敗を判定
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
   let win = Number( req.query.win );
@@ -41,11 +51,13 @@ app.get("/janken", (req, res) => {
   if( num==1 ) cpu = 'グー';
   else if( num==2 ) cpu = 'チョキ';
   else cpu = 'パー';
-  // ここに勝敗の判定を入れる
-  // 今はダミーで人間の勝ちにしておく
+  
+  // じゃんけんの勝敗判定（現在はダミーで人間の勝ち）
   let judgement = '勝ち';
   win += 1;
   total += 1;
+  
+  // 結果を表示
   const display = {
     your: hand,
     cpu: cpu,
@@ -56,12 +68,14 @@ app.get("/janken", (req, res) => {
   res.render( 'janken', display );
 });
 
+// "/get_test"ルートでJSON形式で返すテスト
 app.get("/get_test", (req, res) => {
   res.json({
     answer: 0
   })
 });
 
+// "/add"ルートで2つの数値を加算して返す
 app.get("/add", (req, res) => {
   console.log("GET");
   console.log( req.query );
@@ -72,37 +86,9 @@ app.get("/add", (req, res) => {
   res.json( {answer: num1+num2} );
 });
 
+// POSTリクエストで2つの数値を加算して返す
 app.post("/add", (req, res) => {
   console.log("POST");
   console.log( req.body );
   const num1 = Number( req.body.num1 );
-  const num2 = Number( req.body.num2 );
-  console.log( num1 );
-  console.log( num2 );
-  res.json( {answer: num1+num2} );
-});
-
-// これより下はBBS関係
-app.post("/check", (req, res) => {
-  // 本来はここでDBMSに問い合わせる
-  res.json( {number: bbs.length });
-});
-
-app.post("/read", (req, res) => {
-  // 本来はここでDBMSに問い合わせる
-  const start = Number( req.body.start );
-  console.log( "read -> " + start );
-  if( start==0 ) res.json( {messages: bbs });
-  else res.json( {messages: bbs.slice( start )});
-});
-
-app.post("/post", (req, res) => {
-  const name = req.body.name;
-  const message = req.body.message;
-  console.log( [name, message] );
-  // 本来はここでDBMSに保存する
-  bbs.push( { name: name, message: message } );
-  res.json( {number: bbs.length } );
-});
-
-app.listen(8080, () => console.log("Example app listening on port 8080!"));
+  const num2 = Number( req
